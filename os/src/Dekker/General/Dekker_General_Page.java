@@ -1,9 +1,5 @@
 package Dekker.General;
 
-import Dekker.Dekker_Option_Page;
-import Dekker.Typical.Dekker_Typical_Option_Page;
-import Lamport.Lamport_Mypanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,7 +42,7 @@ public class Dekker_General_Page {
         //主块
         main_dialog = new JDialog();
         main_dialog.setSize(700,400);
-        main_dialog.setLocation(900,200);
+        main_dialog.setLocation(400,150);
         main_dialog.setLayout(new BorderLayout());
 
 

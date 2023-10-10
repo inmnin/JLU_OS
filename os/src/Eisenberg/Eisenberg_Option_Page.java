@@ -1,28 +1,23 @@
-package Dekker.General;
+package Eisenberg;
 
-import Dekker.Dekker_Option_Page;
+
+import Root_Page.Root_Page;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Dekker_General_Option_Page extends JFrame {
+public class Eisenberg_Option_Page extends JFrame {
     int THREAD_NUMS;
     int TURN_NUMS;
     public  JLabel title;
     //增加线程数，减少线程数按钮
     public JButton add_button;
-    public Add_Listenser add_listenser;
     public JButton decline_button;
-    public Decline_Listenser decline_listenser;
-
     //增加turn,减少turn
-
     public JButton add_turn_button;
-    public Add_Turn_Listenser add_turn_listenser;
     public JButton decline_turn_button;
-    public Decline_Turn_Listenser decline_turn_listenser;
 
 
     //线程数显示
@@ -31,11 +26,9 @@ public class Dekker_General_Option_Page extends JFrame {
     public JTextField tnum_field;
     //运行按钮
     public JButton running_button;
-    public Running_Listenser running_listenser;
     //可复用：返回按钮
     public JButton return_button;
-    public Return_Listenser return_listenser;
-    public Dekker_General_Option_Page(){
+    public Eisenberg_Option_Page(){
         //面板尺寸设置
         this.setSize(600,400);
         this.setLocation(400,150);
@@ -65,14 +58,10 @@ public class Dekker_General_Option_Page extends JFrame {
 
 
         //添加监听
-        Add_Listenser add_listenser = new Add_Listenser();
-        Decline_Listenser decline_listenser = new Decline_Listenser();
-        Running_Listenser running_listenser = new Running_Listenser();
-        Return_Listenser return_listenser = new Return_Listenser();
-        add_button.addActionListener(add_listenser);
-        decline_button.addActionListener(decline_listenser);
-        running_button.addActionListener(running_listenser);
-        return_button.addActionListener(return_listenser);
+        add_button.addActionListener(new Add_Listenser());
+        decline_button.addActionListener(new Decline_Listenser());
+        running_button.addActionListener(new Running_Listenser());
+        return_button.addActionListener(new Return_Listenser());
 
         add_turn_button.addActionListener(new Add_Turn_Listenser());
         decline_turn_button.addActionListener(new Decline_Turn_Listenser());
@@ -150,7 +139,7 @@ public class Dekker_General_Option_Page extends JFrame {
                 pnum_field.setText(String.valueOf(THREAD_NUMS));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }
@@ -158,12 +147,12 @@ public class Dekker_General_Option_Page extends JFrame {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
                 if(THREAD_NUMS>1){
-                THREAD_NUMS --;
-                pnum_field.setText(String.valueOf(THREAD_NUMS));
+                    THREAD_NUMS --;
+                    pnum_field.setText(String.valueOf(THREAD_NUMS));
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }
@@ -172,13 +161,13 @@ public class Dekker_General_Option_Page extends JFrame {
             try {
                 if(THREAD_NUMS>0) {
                     int tmp_pnums = THREAD_NUMS;
-                    Dekker_General_Option_Page.this.dispose();
-                    Dekker_General_Page new_window = new Dekker_General_Page(tmp_pnums);
+                    Eisenberg_Option_Page.this.dispose();
+                    Eisenberg_Page new_window = new Eisenberg_Page(tmp_pnums);
                     if(TURN_NUMS<1)
                         TURN_NUMS = 1;
                     new_window.turn = TURN_NUMS;
                     for(int i=1;i<=tmp_pnums;i++){
-                        new Thread((new Dekker_General_Thread(i,new_window))).start();
+                        new Thread((new Eisenberg_Thread(i,new_window))).start();
                     }
                 }
                 else{
@@ -187,7 +176,7 @@ public class Dekker_General_Option_Page extends JFrame {
             }
             catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }
@@ -195,12 +184,12 @@ public class Dekker_General_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener{
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_General_Option_Page.this.dispose();
-                Dekker_Option_Page new_window = new Dekker_Option_Page();
+                Eisenberg_Option_Page.this.dispose();
+                Root_Page new_window = new Root_Page();
                 new_window.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }
@@ -212,7 +201,7 @@ public class Dekker_General_Option_Page extends JFrame {
                 tnum_field.setText(String.valueOf(TURN_NUMS));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }
@@ -224,11 +213,11 @@ public class Dekker_General_Option_Page extends JFrame {
                     tnum_field.setText(String.valueOf(TURN_NUMS));
                 }
                 else {TURN_NUMS = THREAD_NUMS;
-                      tnum_field.setText(String.valueOf(TURN_NUMS));
+                    tnum_field.setText(String.valueOf(TURN_NUMS));
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_General_Option_Page.this.dispose();
+                Eisenberg_Option_Page.this.dispose();
             }
         }
     }

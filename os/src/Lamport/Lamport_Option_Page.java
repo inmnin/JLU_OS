@@ -1,12 +1,6 @@
 package Lamport;
 
 
-import Dekker.Dekker_Option_Page;
-import Dekker.General.Dekker_General_Page;
-import Dekker.General.Dekker_General_Thread;
-import Dekker.Typical.Dekker_Typical_Page;
-import Dekker.Typical.Dekker_Typical_Thread;
-import Lamport.Lamport_Thread;
 import Root_Page.Root_Page;
 
 import javax.swing.*;
@@ -167,7 +161,7 @@ public class Lamport_Option_Page extends JFrame {
             try {
                 Lamport_Option_Page.this.dispose();
                 Root_Page new_window = new Root_Page();
-                new_window.f.setVisible(true);
+                new_window.main_frame.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Lamport_Option_Page.this.dispose();

@@ -1,13 +1,13 @@
-package Dekker.Typical;
+package Peterson;
 
-import Dekker.Dekker_Option_Page;
+import Root_Page.Root_Page;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Dekker_Typical_Option_Page extends JFrame {
+public class Peterson_Option_Page extends JFrame {
     public JLabel title = new JLabel("设置进程程优先级");
     //按钮
     public JButton change_turn_button = new JButton("进程优先级切换: 0号进程优先");
@@ -17,7 +17,7 @@ public class Dekker_Typical_Option_Page extends JFrame {
     public JTextField turn_num_text = new JTextField("0");
     int TURN_NUMS = 0;
 
-    public Dekker_Typical_Option_Page(){
+    public Peterson_Option_Page(){
         this.setSize(600,500);
         this.setLocation(400,150);
         this.setLayout(null);
@@ -49,9 +49,9 @@ public class Dekker_Typical_Option_Page extends JFrame {
 
 
         //为按钮添加监听器
-        change_turn_button.addActionListener(new Dekker_Typical_Option_Page.Change_Turn_Listenser());
-        running_button.addActionListener(new Dekker_Typical_Option_Page.Running_Listenser());
-        return_button.addActionListener(new Dekker_Typical_Option_Page.Return_Listenser());
+        change_turn_button.addActionListener(new Peterson_Option_Page.Change_Turn_Listenser());
+        running_button.addActionListener(new Peterson_Option_Page.Running_Listenser());
+        return_button.addActionListener(new Peterson_Option_Page.Return_Listenser());
 
         this.add(turn_num_text);
         this.add(change_turn_button);
@@ -68,7 +68,7 @@ public class Dekker_Typical_Option_Page extends JFrame {
                 change_turn_button.setText("进程优先级切换: "+String.valueOf(TURN_NUMS)+"号进程优先");
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_Typical_Option_Page.this.dispose();
+                Peterson_Option_Page.this.dispose();
             }
         }
     }
@@ -76,16 +76,16 @@ public class Dekker_Typical_Option_Page extends JFrame {
     class Running_Listenser implements ActionListener{
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                    int tmp_tnums = TURN_NUMS;
-                    Dekker_Typical_Option_Page.this.dispose();
-                    Dekker_Typical_Page new_window = new Dekker_Typical_Page();
-                    new_window.turn = tmp_tnums;
-                    new Thread(new Dekker_Typical_Thread(0,new_window)).start();
-                    new Thread(new Dekker_Typical_Thread(1,new_window)).start();
-                }
+                int tmp_tnums = TURN_NUMS;
+                Peterson_Option_Page.this.dispose();
+                Peterson_Page new_window = new Peterson_Page();
+                new_window.turn = tmp_tnums;
+                new Thread(new Peterson_Thread(0,new_window)).start();
+                new Thread(new Peterson_Thread(1,new_window)).start();
+            }
             catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_Typical_Option_Page.this.dispose();
+                Peterson_Option_Page.this.dispose();
             }
         }
     }
@@ -93,14 +93,15 @@ public class Dekker_Typical_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_Typical_Option_Page.this.dispose();
-                Dekker_Option_Page new_window = new Dekker_Option_Page();
+                Peterson_Option_Page.this.dispose();
+                Root_Page new_window = new Root_Page();
                 new_window.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                Dekker_Typical_Option_Page.this.dispose();
+                Peterson_Option_Page.this.dispose();
             }
         }
     }
 
 }
+

@@ -91,7 +91,7 @@ public class Dekker_Option_Page extends JFrame {
             try {
                 Dekker_Option_Page.this.dispose();
                 Root_Page new_window = new Root_Page();
-                new_window.f.setVisible(true);
+                new_window.main_frame.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Dekker_Option_Page.this.dispose();
