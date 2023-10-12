@@ -1,7 +1,6 @@
 package Lamport;
 
-import Dekker.Typical.Dekker_Typical_Option_Page;
-import Dekker.Typical.Dekker_Typical_Page;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,10 +30,7 @@ public class Lamport_Page{
 
     //状态图形
     public Lamport_Mypanel mypanel;
-
     public JButton return_button;
-
-
 
     public Lamport_Page(int n){
         Entering = new boolean[n+1];
@@ -57,7 +53,7 @@ public class Lamport_Page{
         mid_scroll = new JScrollPane(mid_text);
         mid_text.setEditable(false);
         mid_text.setAutoscrolls(true);
-        mid_scroll.setPreferredSize(new Dimension(200, 400));
+        mid_scroll.setPreferredSize(new Dimension(220, 400));
         main_dialog.add(mid_scroll,BorderLayout.CENTER);
 
 //        //左边状态栏
@@ -79,17 +75,16 @@ public class Lamport_Page{
         left_title.setBackground(new Color(238,238,238));
         left_state_block.add(left_title, BorderLayout.NORTH);
 
-        return_button = new JButton("返回");
-        return_button.setBounds(10,left_state_block.getHeight()-35,40,30);
-        return_button.addActionListener(new Lamport_Page.Return_Listenser());
-        left_state_block.add(return_button,BorderLayout.SOUTH);
-
-
         left_mid_block = new JPanel();
         left_mid_block.setSize(200,200 + NUM_THREADS/6 * 50);
         left_mid_block.setLayout(null);
         left_state_block.add(left_mid_block, BorderLayout.CENTER);
 
+        return_button = new JButton("返回");
+        return_button.setBounds(10,left_state_block.getHeight()-35,40,30);
+        return_button.addActionListener(new Lamport_Page.Return_Listenser());
+        left_state_block.add(return_button,BorderLayout.SOUTH);
+        
                 //右边状态栏
         right_text = new JTextArea();
         right_scroll = new JScrollPane(right_text);
@@ -125,5 +120,4 @@ public class Lamport_Page{
             }
         }
     }
-
 }

@@ -1,48 +1,42 @@
-package Lamport;
-
-import Dekker.Typical.Dekker_Typical_Option_Page;
-import Dekker.Typical.Dekker_Typical_Page;
+package Dekker.General;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Lamport_Page{
-
+public class Dekker_General_Page {
     //是否进入或者准备进入时，正在取号的状态
-    boolean Entering[] = null;
+    boolean flag[] = null;
 
     //领自己的单号
-    int Number[] = null;
+    int turn;
+    int want_in;
     int NUM_THREADS;
 
     public JDialog main_dialog = null;
     //mid件
     public JTextArea mid_text;
     public JScrollPane mid_scroll;
-    //right件
+    //left件
     public JPanel left_state_block;
     public JPanel left_mid_block;
+    public JButton return_button;
 
     //right件
     public JTextArea right_text;
     public JScrollPane right_scroll;
 
     //状态图形
-    public Lamport_Mypanel mypanel;
+    public Dekker_General_Mypanel mypanel;
 
-    public JButton return_button;
-
-
-
-    public Lamport_Page(int n){
-        Entering = new boolean[n+1];
-        Number = new int[n+1];
+    public Dekker_General_Page(int n){
+        flag = new boolean[n+1];
+        turn = 1; //创建的线程编号是从1开始的
+        want_in = 0;
         NUM_THREADS = n;
-        for(int i=1;i<=n;i++){
-            Entering[i] = false;
-            Number[i] = 0;
+        for(int i=0;i<=n;i++){
+            flag[i] = false;
         }
 
         //主块
@@ -60,13 +54,6 @@ public class Lamport_Page{
         mid_scroll.setPreferredSize(new Dimension(200, 400));
         main_dialog.add(mid_scroll,BorderLayout.CENTER);
 
-//        //左边状态栏
-//        mid_text = new JTextArea();
-//        mid_scroll = new JScrollPane(mid_text);
-//        mid_text.setEditable(false);
-//        mid_text.setAutoscrolls(true);
-//        main_dialog.add(mid_scroll,BorderLayout.CENTER);
-
 
         //左边图形状态栏
         left_state_block = new JPanel(new BorderLayout());
@@ -75,22 +62,23 @@ public class Lamport_Page{
         JTextArea left_title = new JTextArea();
         left_title.setEditable(false);
         left_title.setFont(new Font("隶书", Font.BOLD,25));
-        left_title.append("   Lamport算法   ");
+        left_title.append("   推广的Dekker算法   ");
         left_title.setBackground(new Color(238,238,238));
         left_state_block.add(left_title, BorderLayout.NORTH);
-
-        return_button = new JButton("返回");
-        return_button.setBounds(10,left_state_block.getHeight()-35,40,30);
-        return_button.addActionListener(new Lamport_Page.Return_Listenser());
-        left_state_block.add(return_button,BorderLayout.SOUTH);
-
 
         left_mid_block = new JPanel();
         left_mid_block.setSize(200,200 + NUM_THREADS/6 * 50);
         left_mid_block.setLayout(null);
         left_state_block.add(left_mid_block, BorderLayout.CENTER);
 
-                //右边状态栏
+
+        return_button = new JButton("返回");
+        return_button.setBounds(10,left_state_block.getHeight()-35,40,30);
+        return_button.addActionListener(new Return_Listenser());
+        left_state_block.add(return_button,BorderLayout.SOUTH);
+
+
+        //右边状态栏
         right_text = new JTextArea();
         right_scroll = new JScrollPane(right_text);
         right_text.setEditable(false);
@@ -102,7 +90,7 @@ public class Lamport_Page{
 
 
 
-        mypanel = new Lamport_Mypanel(NUM_THREADS);
+        mypanel = new Dekker_General_Mypanel(NUM_THREADS);
         mypanel.setBounds(0,0,200,300 + NUM_THREADS * 50);
         mypanel.setRunning_id(0);
         left_mid_block.add(mypanel);
@@ -112,12 +100,11 @@ public class Lamport_Page{
         main_dialog.setVisible(true);
 
     }
-
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
                 main_dialog.dispose();
-                Lamport_Option_Page new_window = new Lamport_Option_Page();
+                Dekker_General_Option_Page new_window = new Dekker_General_Option_Page();
                 new_window.setVisible(true);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
@@ -125,5 +112,6 @@ public class Lamport_Page{
             }
         }
     }
+
 
 }
