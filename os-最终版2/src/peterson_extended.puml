@@ -1,0 +1,32 @@
+@startuml
+
+
+
+start
+
+:peterson_extended_controller.Initialize page, mylock;
+
+:peterson_filter_lock.lock(processId);
+note: 获得filter锁
+while (i from 1 to N)
+    :peterson_extended_controller.flag[processId][i] = true;
+    :peterson_extended_controller.victim[i] = processId;
+    while (peterson_extended_controller.otherProcessWantsToEnter AND victim[i] == processId) is (是)
+
+        :peterson_extended_ui.mid_text_block.add("进程processId正在等待");
+        note right: 继续，直到安全进行
+    endwhile
+endwhile
+
+:peterson_extended_controller.Set running process on panel;
+:模拟执行临界区内的操作;
+
+:peterson_filter_lock.unlock(processId);
+note right: 释放filter锁
+while (i from N down to 1)
+    :设置peterson_extended_controller.flag[processId][i] = false;
+endwhile
+
+stop
+
+@enduml
