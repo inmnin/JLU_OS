@@ -2,19 +2,20 @@ package Eisenberg;
 
 import Dekker.General.Dekker_General_Option_Page;
 import Dekker.General.Dekker_General_Page;
+import PageMgr.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-public class Eisenberg_Page extends JDialog {
+public class Eisenberg_Page extends Page {
     int flags[] = null;
     int NUM_THREADS;
     int IDLE = 0;
     int WAITING = 1;
     int ACTIVE = 2;
-    int turn;
+
 
     public JTextArea mid_text;
     public JScrollPane mid_scroll;
@@ -32,7 +33,7 @@ public class Eisenberg_Page extends JDialog {
             flags[i] = IDLE;
         NUM_THREADS = n;
         Random random = new Random();
-        turn = random.nextInt(n);
+        turn = 1;
 
         this.setSize(700,400);
         this.setLocation(400,150);
@@ -90,9 +91,7 @@ public class Eisenberg_Page extends JDialog {
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Eisenberg_Page.this.dispose();
-                Eisenberg_Option_Page new_window = new Eisenberg_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Root_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Eisenberg_Page.this.dispose();

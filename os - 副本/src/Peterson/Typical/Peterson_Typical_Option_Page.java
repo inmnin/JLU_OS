@@ -1,6 +1,7 @@
 package Peterson.Typical;
 
 
+import PageMgr.*;
 import Peterson.Peterson_Option_Page;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Peterson_Typical_Option_Page extends JFrame {
+public class Peterson_Typical_Option_Page extends Page {
     public JLabel title = new JLabel("设置进程程优先级");
     //按钮
     public JButton change_turn_button = new JButton("进程优先级切换: 0号进程优先");
@@ -85,6 +86,7 @@ public class Peterson_Typical_Option_Page extends JFrame {
                 new_window.turn = tmp_tnums;
                 new Thread(new Peterson_Typical_Thread(0,new_window)).start();
                 new Thread(new Peterson_Typical_Thread(1,new_window)).start();
+                PageMgr.getInstance().special_set(new_window);
             }
             catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
@@ -96,9 +98,7 @@ public class Peterson_Typical_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Peterson_Typical_Option_Page.this.dispose();
-                Peterson_Option_Page new_window = new Peterson_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Peterson_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Peterson_Typical_Option_Page.this.dispose();

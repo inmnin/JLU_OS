@@ -2,13 +2,14 @@ package Dekker;
 
 import Dekker.General.*;
 import Dekker.Typical.*;
+import PageMgr.*;
 import Root_Page.Root_Page;
 
 import javax.swing.*;
 import java.awt.event.*;
 
 
-public class Dekker_Option_Page extends JFrame {
+public class Dekker_Option_Page extends Page {
 
     //运行经典dekker算法
     public JButton typical_begin_button = new JButton("经典dekker算法");
@@ -45,8 +46,8 @@ public class Dekker_Option_Page extends JFrame {
 
 
         //为按钮添加监听器
-        typical_begin_button.addActionListener(new Typical_Begin_Listenser());
-        general_begin_button.addActionListener(new General_Begin_Listenser());
+        typical_begin_button.addActionListener(new Typical_Running_Listenser());
+        general_begin_button.addActionListener(new General_Running_Listenser());
         return_button.addActionListener(new Return_Listenser());
 
         //添加按钮与输入框
@@ -57,12 +58,10 @@ public class Dekker_Option_Page extends JFrame {
 
     }
 
-    class Typical_Begin_Listenser implements ActionListener {
+    class Typical_Running_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_Option_Page.this.dispose();
-                Dekker_Typical_Option_Page new_window = new Dekker_Typical_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Dekker_Typical_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Dekker_Option_Page.this.dispose();
@@ -70,12 +69,10 @@ public class Dekker_Option_Page extends JFrame {
         }
     }
 
-    class General_Begin_Listenser implements ActionListener {
+    class General_Running_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_Option_Page.this.dispose();
-                Dekker_General_Option_Page new_window = new Dekker_General_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Dekker_General_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Dekker_Option_Page.this.dispose();
@@ -89,9 +86,7 @@ public class Dekker_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_Option_Page.this.dispose();
-                Root_Page new_window = new Root_Page();
-                new_window.main_frame.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Root_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Dekker_Option_Page.this.dispose();

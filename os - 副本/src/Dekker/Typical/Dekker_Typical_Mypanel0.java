@@ -4,13 +4,13 @@ package Dekker.Typical;
 import java.awt.*;
 
 public class Dekker_Typical_Mypanel0 extends Panel{
-    int flag1;
-    public void setcolor(int flag1){
-        this.flag1 = flag1;
+    int flag;
+    public void setcolor(int flag){
+        this.flag = flag;
     }
     public void paint(Graphics g){
         g.drawString(" process0:",0,10);
-        switch (flag1){
+        switch (flag){
             case 1:
                 g.setColor(Color.RED);
                 break;

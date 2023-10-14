@@ -82,8 +82,6 @@ public class Lamport_Thread implements Runnable{
                 Thread.sleep(sleep_time/10);
             }
 
-
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

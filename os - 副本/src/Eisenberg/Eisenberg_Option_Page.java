@@ -1,6 +1,7 @@
 package Eisenberg;
 
 
+import PageMgr.*;
 import Root_Page.Root_Page;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Eisenberg_Option_Page extends JFrame {
+public class Eisenberg_Option_Page extends Page{
     int THREAD_NUMS;
     int TURN_NUMS;
     public  JLabel title;
@@ -169,6 +170,7 @@ public class Eisenberg_Option_Page extends JFrame {
                     for(int i=1;i<=tmp_pnums;i++){
                         new Thread((new Eisenberg_Thread(i,new_window))).start();
                     }
+                    PageMgr.getInstance().special_set(new_window);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "进程数不可以为0！");
@@ -184,8 +186,7 @@ public class Eisenberg_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener{
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Eisenberg_Option_Page.this.dispose();
-                Root_Page new_window = new Root_Page();
+                PageMgr.getInstance().setActivepage(PageType.Root_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Eisenberg_Option_Page.this.dispose();

@@ -1,13 +1,14 @@
 package Dekker.General;
 
 import Dekker.Dekker_Option_Page;
+import PageMgr.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Dekker_General_Option_Page extends JFrame {
+public class Dekker_General_Option_Page extends Page {
 
     int THREAD_NUMS;
     int TURN_NUMS;
@@ -175,12 +176,14 @@ public class Dekker_General_Option_Page extends JFrame {
                     int tmp_pnums = THREAD_NUMS;
                     Dekker_General_Option_Page.this.dispose();
                     Dekker_General_Page new_window = new Dekker_General_Page(tmp_pnums);
+                    new_window.setVisible(true);
                     if(TURN_NUMS<1)
                         TURN_NUMS = 1;
                     new_window.turn = TURN_NUMS;
                     for(int i=1;i<=tmp_pnums;i++){
                         new Thread((new Dekker_General_Thread(i,new_window))).start();
                     }
+                    PageMgr.getInstance().special_set(new_window);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "进程数不可以为0！");
@@ -196,9 +199,7 @@ public class Dekker_General_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener{
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Dekker_General_Option_Page.this.dispose();
-                Dekker_Option_Page new_window = new Dekker_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Dekker_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Dekker_General_Option_Page.this.dispose();

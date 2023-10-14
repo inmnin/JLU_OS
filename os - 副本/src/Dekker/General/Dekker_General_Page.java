@@ -1,18 +1,19 @@
 package Dekker.General;
 
+import PageMgr.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Dekker_General_Page {
+public class Dekker_General_Page extends Page {
 
     public volatile boolean[] flag = null;
-    public volatile int turn;
     int want_in;
     int NUM_THREADS;
 
-    public JDialog main_dialog = null;
+
     //mid件
     public JTextArea mid_text;
     public JScrollPane mid_scroll;
@@ -37,10 +38,9 @@ public class Dekker_General_Page {
         }
 
         //主块
-        main_dialog = new JDialog();
-        main_dialog.setSize(700,400);
-        main_dialog.setLocation(400,150);
-        main_dialog.setLayout(new BorderLayout());
+        this.setSize(700,400);
+        this.setLocation(400,150);
+        this.setLayout(new BorderLayout());
 
 
         //中间状态栏
@@ -49,12 +49,12 @@ public class Dekker_General_Page {
         mid_text.setEditable(false);
         mid_text.setAutoscrolls(true);
         mid_scroll.setPreferredSize(new Dimension(200, 400));
-        main_dialog.add(mid_scroll,BorderLayout.CENTER);
+        this.add(mid_scroll,BorderLayout.CENTER);
 
 
         //左边图形状态栏
         left_state_block = new JPanel(new BorderLayout());
-        main_dialog.add(left_state_block,BorderLayout.WEST);
+        this.add(left_state_block,BorderLayout.WEST);
 
         JTextArea left_title = new JTextArea();
         left_title.setEditable(false);
@@ -82,7 +82,7 @@ public class Dekker_General_Page {
         right_text.setAutoscrolls(true);
         right_scroll.setPreferredSize(new Dimension(200, 400));
         right_text.append("开始监控进程具体行为：\n");
-        main_dialog.add(right_scroll,BorderLayout.EAST);
+        this.add(right_scroll,BorderLayout.EAST);
 
 
 
@@ -93,19 +93,17 @@ public class Dekker_General_Page {
         left_mid_block.add(mypanel);
 
 
-        main_dialog.pack();
-        main_dialog.setVisible(true);
+        this.pack();
+        this.setVisible(true);
 
     }
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                main_dialog.dispose();
-                Dekker_General_Option_Page new_window = new Dekker_General_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Dekker_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
-                main_dialog.dispose();
+                Dekker_General_Page.this.dispose();
             }
         }
     }

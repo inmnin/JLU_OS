@@ -1,5 +1,8 @@
 package Eisenberg;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Eisenberg_Thread implements Runnable {
@@ -43,10 +46,20 @@ public class Eisenberg_Thread implements Runnable {
         }
         page.mid_text.append("---进程" + id + "正在访问临界区---\n");
         page.mypanel.setRunning_id(id);
-        Random ra = new Random();
+        Random random = new Random();
         page.mypanel.repaint();
         try {
-            Thread.sleep(1500 + ra.nextInt(500));
+            int sleep_time = (1500+random.nextInt(500))*5;
+            List<String> movement = new ArrayList<>(Arrays.asList("写入变量a", "写入变量b", "操作变量a和b", "修改变量a", "修改变量b",
+                    "写入变量c", "释放变量a", "释放变量b", "操作变量c", "释放变量c"));
+
+            page.right_text.append("process"+id+"进入临界区并操作独占资源\n");
+            for(int i = 0;i<=9;i++){
+                //改变左边进程运行版信息
+                page.right_text.append(movement.get(i)+"\n");
+                Thread.sleep(sleep_time/10);
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

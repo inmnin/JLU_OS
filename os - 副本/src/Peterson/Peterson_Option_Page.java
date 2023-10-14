@@ -1,5 +1,6 @@
 package Peterson;
 
+import PageMgr.*;
 import Peterson.General.*;
 import Peterson.Typical.*;
 import Root_Page.Root_Page;
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-public class Peterson_Option_Page extends JFrame {
+public class Peterson_Option_Page extends Page {
 
     //运行经典Peterson算法
     public JButton typical_begin_button = new JButton("经典Peterson算法");
@@ -60,9 +61,7 @@ public class Peterson_Option_Page extends JFrame {
     class Typical_Begin_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Peterson_Option_Page.this.dispose();
-                Peterson_Typical_Option_Page new_window = new Peterson_Typical_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Peterson_Typical_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Peterson_Option_Page.this.dispose();
@@ -73,9 +72,7 @@ public class Peterson_Option_Page extends JFrame {
     class General_Begin_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Peterson_Option_Page.this.dispose();
-                Peterson_General_Option_Page new_window = new Peterson_General_Option_Page();
-                new_window.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Peterson_General_Option_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Peterson_Option_Page.this.dispose();
@@ -89,9 +86,7 @@ public class Peterson_Option_Page extends JFrame {
     class Return_Listenser implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                Peterson_Option_Page.this.dispose();
-                Root_Page new_window = new Root_Page();
-                new_window.main_frame.setVisible(true);
+                PageMgr.getInstance().setActivepage(PageType.Root_Page);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "错误输入！");
                 Peterson_Option_Page.this.dispose();

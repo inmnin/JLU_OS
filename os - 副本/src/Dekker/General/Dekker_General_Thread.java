@@ -44,7 +44,10 @@ public class Dekker_General_Thread implements Runnable{
                     }
                     if(can_in == true) break;
                 }
-            while(page.turn != id){
+
+            int maxTries = 3;  // 设置最大尝试次数为5，这意味着线程最多会等待10秒
+            int timeoutCounter = 0;
+            while(page.turn != id && timeoutCounter<maxTries){
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -56,6 +59,7 @@ public class Dekker_General_Thread implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                timeoutCounter++;
                 }
             synchronized (page)
             {page.flag[id] = true;}
