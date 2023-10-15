@@ -1,12 +1,8 @@
 package Root_Page;
 
-import Lamport.*;
-import Dekker.*;
-import Eisenberg.*;
 import PageMgr.Page;
 import PageMgr.PageMgr;
 import PageMgr.PageType;
-import Peterson.*;
 
 import javax.swing.*;
 import java.awt.*;
